@@ -26,7 +26,7 @@ const mockEmployees = [
 ];
 
 const Home = () => {
-  const [sector, setSector] = useState("admin") // "", "user", "admin"
+  const [sector, setSector] = useState("") // "", "user", "admin"
 
   let content
   switch (sector) {
@@ -50,8 +50,8 @@ const Home = () => {
         React - Assessment
       </h1>
       <div className="flex gap-28 justify-center *:bg-white *:p-3 *:font-bold *:drop-shadow-lg *:rounded">
-        <button>User Home Sector</button>
-        <button>Admin Home Sector</button>
+        <button value="user" onClick={(e) => setSector(e.target.value)}>User Home Sector</button>
+        <button value="admin" onClick={(e) => setSector(e.target.value)}>Admin Home Sector</button>
       </div>
       {content}
     </Layout>
