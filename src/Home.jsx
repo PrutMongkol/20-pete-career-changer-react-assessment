@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Layout from "./Layout";
 import User from "./User";
@@ -28,7 +28,7 @@ const mockEmployees = [
 const Home = () => {
   const [sector, setSector] = useState("") // "", "user", "admin"
   const [employees, setEmployees] = useState([...mockEmployees]);
-  
+
   let content
   switch (sector) {
     case "user":

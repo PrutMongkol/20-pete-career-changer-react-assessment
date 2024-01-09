@@ -59,15 +59,24 @@ function CreateUserForm({ employees, setEmployees }) {
   );
 }
 
-function AdminTable({ employees }) {
+function AdminTable({ employees, setEmployees }) {
+ 
+  const handleDelete = (id) => {
+    let nextEmployees = [...employees];
+    nextEmployees = nextEmployees.filter(e => e.id !== id)
+    setEmployees(nextEmployees);
+  };
+
   return (
     <div className="grid pt-8">
       <table className="place-self-center table-auto border-2 border-slate-400 ">
         <thead className="bg-slate-400 *:min-w-32">
-          <th>Name</th>
-          <th>Last Name</th>
-          <th>Position</th>
-          <th>Action</th>
+          <tr>
+            <th>Name</th>
+            <th>Last Name</th>
+            <th>Position</th>
+            <th>Action</th>
+          </tr>
         </thead>
         <tbody className="bg-slate-50 text-center">
           {employees.map((e) => {
@@ -77,7 +86,10 @@ function AdminTable({ employees }) {
                 <td>{e.lastname}</td>
                 <td>{e.position}</td>
                 <td>
-                  <button className="text-red-600 px-8" value={e.id}>
+                  <button 
+                    className="text-red-600 px-8" 
+                    onClick={() => handleDelete(e.id)}
+                  >
                     Delete
                   </button>
                 </td>
@@ -94,7 +106,7 @@ export default function Admin({ employees, setEmployees }) {
   return (
     <>
       <CreateUserForm employees={employees} setEmployees={setEmployees} />
-      <AdminTable employees={employees} />
+      <AdminTable employees={employees} setEmployees={setEmployees} />
     </>
   );
 }
