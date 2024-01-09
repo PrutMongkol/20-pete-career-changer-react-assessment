@@ -4,7 +4,9 @@ export default function Layout({ children }) {
   return (
     <div>
       <Navbar />
-      {children}
+      <div className="m-4">
+        {children}
+      </div>
     </div>
   );
 }
