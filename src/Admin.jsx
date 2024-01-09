@@ -1,4 +1,22 @@
-function CreateUserForm() {
+import { useState } from "react";
+
+function CreateUserForm({ employees, setEmployees }) {
+  const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [position, setPosition] = useState("");
+
+  const handleCreate = (nextName, nextLastname, nextPosition) => {
+    setEmployees([
+      ...employees,
+      {
+        id: crypto.randomUUID(),
+        name: nextName,
+        lastname: nextLastname,
+        position: nextPosition,
+      },
+    ]);
+  };
+
   return (
     <div className="grid my-10">
       <div className="place-self-center">
@@ -10,6 +28,7 @@ function CreateUserForm() {
           placeholder="Name"
           id="name"
           aria-label="name"
+          onChange={(e) => setName(e.target.value)}
         />
         <input
           className="p-2 mx-4 my-2 rounded"
@@ -17,7 +36,8 @@ function CreateUserForm() {
           name="lastname"
           placeholder="Last Name"
           id="name"
-          aria-label="name"
+          aria-label="lastname"
+          onChange={(e) => setLastname(e.target.value)}
         />
         <input
           className="p-2 mx-4 my-2 rounded"
@@ -25,9 +45,13 @@ function CreateUserForm() {
           name="position"
           placeholder="Position"
           id="name"
-          aria-label="name"
+          aria-label="position"
+          onChange={(e) => setPosition(e.target.value)}
         />
-        <button className="py-2 px-6 mx-4 my-2 rounded bg-indigo-500 text-white">
+        <button
+          className="py-2 px-6 mx-4 my-2 rounded bg-indigo-500 text-white"
+          onClick={(e) => handleCreate(name, lastname, position)}
+        >
           Save
         </button>
       </div>
@@ -66,10 +90,10 @@ function AdminTable({ employees }) {
   );
 }
 
-export default function Admin({ employees }) {
+export default function Admin({ employees, setEmployees }) {
   return (
     <>
-      <CreateUserForm />
+      <CreateUserForm employees={employees} setEmployees={setEmployees} />
       <AdminTable employees={employees} />
     </>
   );

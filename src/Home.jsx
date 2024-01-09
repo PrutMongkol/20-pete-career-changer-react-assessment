@@ -35,7 +35,7 @@ const Home = () => {
       content = <User employees={employees} />;
       break;
     case "admin":
-      content = <Admin employees={employees} />;
+      content = <Admin employees={employees} setEmployees={setEmployees} />;
       break;
     case "":
     default:
