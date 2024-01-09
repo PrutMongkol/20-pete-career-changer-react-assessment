@@ -1,11 +1,11 @@
 export default function Navbar() {
   return (
-    <ul>
+    <ul className="flex justify-end px-4 py-4 text-lg font-bold border-b-2 *:px-4 ">
       <li>
-        <a href="/">Home</a>
+        <a className="py-4" href="/">Home</a>
       </li>
       <li>
-        <a href="/owner">Owner</a>
+        <a className="py-4" href="/owner">Owner</a>
       </li>
     </ul>
   );
