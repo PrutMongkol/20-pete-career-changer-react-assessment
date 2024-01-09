@@ -1,6 +1,7 @@
 import { useState } from "react";
+import axios from "axios";
 
-function CreateUserForm({ employees, setEmployees }) {
+function CreateUserForm({ reload, setReload }) {
   const [name, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [position, setPosition] = useState("");
@@ -33,21 +34,26 @@ function CreateUserForm({ employees, setEmployees }) {
     return isValid;
   };
 
-  const handleCreate = (nextName, nextLastname, nextPosition) => {
-
+  const handleCreate = async (nextName, nextLastname, nextPosition) => {
     if (validateForm()) {
-      setEmployees([
-        ...employees,
-        {
-          id: crypto.randomUUID(),
-          name: nextName,
-          lastname: nextLastname,
-          position: nextPosition,
-        },
-      ]);
-      setName("");
-      setLastname("");
-      setPosition("");
+      const data = {
+        name: nextName,
+        lastname: nextLastname,
+        position: nextPosition,
+      };
+
+      const response = await axios.post(
+        "https://jsd5-mock-backend.onrender.com/members",
+        data
+      );
+
+      if (response.status === 200) {
+        setReload(!reload);
+
+        setName("");
+        setLastname("");
+        setPosition("");
+      }
     }
   };
 
@@ -55,9 +61,13 @@ function CreateUserForm({ employees, setEmployees }) {
     <div className="grid my-10">
       <div className="place-self-center">
         <h2 className="text-xl font-bold py-4 mx-4">Create User Here</h2>
-        <form className="flex flex-row" onSubmit={(e) => {
-          e.preventDefault();
-          handleCreate(name, lastname, position)}}>
+        <form
+          className="flex flex-row"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleCreate(name, lastname, position);
+          }}
+        >
           <div className="flex flex-col">
             <input
               className="p-2 mx-4 my-2 rounded"
@@ -109,11 +119,13 @@ function CreateUserForm({ employees, setEmployees }) {
   );
 }
 
-function AdminTable({ employees, setEmployees }) {
-  const handleDelete = (id) => {
-    let nextEmployees = [...employees];
-    nextEmployees = nextEmployees.filter((e) => e.id !== id);
-    setEmployees(nextEmployees);
+function AdminTable({ employees, reload, setReload }) {
+  const handleDelete = async (id) => {
+    const response = await axios.delete(`https://jsd5-mock-backend.onrender.com/member/${id}`);
+
+    if (response.status === 200) {
+      setReload(!reload);
+    }
   };
 
   return (
@@ -151,11 +163,11 @@ function AdminTable({ employees, setEmployees }) {
   );
 }
 
-export default function Admin({ employees, setEmployees }) {
+export default function Admin({ employees, reload, setReload }) {
   return (
     <>
-      <CreateUserForm employees={employees} setEmployees={setEmployees} />
-      <AdminTable employees={employees} setEmployees={setEmployees} />
+      <CreateUserForm reload={reload} setReload={setReload} />
+      <AdminTable employees={employees} reload={reload} setReload={setReload} />
     </>
   );
 }
