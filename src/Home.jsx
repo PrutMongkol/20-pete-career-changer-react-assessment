@@ -1,33 +1,32 @@
+import Layout from "./Layout";
+
 const mockEmployees = [
   {
     id: 0,
     name: "mock",
-    lastname: 'mocklastname',
-    position: "Manager"
+    lastname: "mocklastname",
+    position: "Manager",
   },
   {
     id: 1,
     name: "employee 1",
     lastname: "em",
-    position: "Engineer"
+    position: "Engineer",
   },
   {
     id: 2,
     name: "employee 2",
     lastname: "lord",
-    position: "Designer"
+    position: "Designer",
   },
-]
+];
 
 const Home = () => {
-
   return (
-    <div>
+    <Layout>
+      <h1>This is Home Page</h1>
+    </Layout>
+  );
+};
 
-    </div>
-  )
-}
-
-
-
-export default Home
+export default Home;
