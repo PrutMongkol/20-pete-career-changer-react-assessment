@@ -27,14 +27,15 @@ const mockEmployees = [
 
 const Home = () => {
   const [sector, setSector] = useState("") // "", "user", "admin"
-
+  const [employees, setEmployees] = useState([...mockEmployees]);
+  
   let content
   switch (sector) {
     case "user":
-      content = <User />;
+      content = <User employees={employees} />;
       break;
     case "admin":
-      content = <Admin />;
+      content = <Admin employees={employees} />;
       break;
     case "":
     default:
