@@ -3,9 +3,11 @@ export default function User({ employees }) {
     <div className="grid pt-8">
       <table className="place-self-center table-auto border-2 border-slate-400 ">
         <thead className="bg-slate-400 *:min-w-32">
-          <th>Name</th>
-          <th>Last Name</th>
-          <th>Position</th>
+          <tr>
+            <th>Name</th>
+            <th>Last Name</th>
+            <th>Position</th>
+          </tr>
         </thead>
         <tbody className="bg-slate-50 text-center">
           {employees.map((e) => {
