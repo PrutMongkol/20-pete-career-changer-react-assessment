@@ -1,5 +1,8 @@
+import { useState } from 'react';
+
 import Layout from "./Layout";
 import User from "./User";
+import Admin from "./Admin"
 
 const mockEmployees = [
   {
@@ -23,6 +26,22 @@ const mockEmployees = [
 ];
 
 const Home = () => {
+  const [sector, setSector] = useState("admin") // "", "user", "admin"
+
+  let content
+  switch (sector) {
+    case "user":
+      content = <User />;
+      break;
+    case "admin":
+      content = <Admin />;
+      break;
+    case "":
+    default:
+      content = <></>;
+      break;
+  }
+
   return (
     <Layout>
       <h1 className="text-4xl font-bold text-center my-10">
@@ -30,11 +49,11 @@ const Home = () => {
         <br />
         React - Assessment
       </h1>
-      <div className="flex gap-28 justify-center *:bg-white *:p-3 *:font-bold *:drop-shadow-lg">
+      <div className="flex gap-28 justify-center *:bg-white *:p-3 *:font-bold *:drop-shadow-lg *:rounded">
         <button>User Home Sector</button>
         <button>Admin Home Sector</button>
       </div>
-      <User />
+      {content}
     </Layout>
   );
 };
